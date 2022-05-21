@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 const CarCard = ({ car, setCars, cars }) => {
     const [open, setOpen] = useState(false)
+    const [carData, setCarData] = useState({})
 
     const deleteHandler = () => {
         fetch(`https://ptf-web-dizajn-2022.azurewebsites.net/api/Cars/${car.id}`, {
@@ -17,7 +18,20 @@ const CarCard = ({ car, setCars, cars }) => {
     }
 
     const editHandler = () => {
-        console.log("Edited")
+        setCars(cars.map((item) => {
+            if(item.id === car.id){
+                return{
+                    ...item,
+                    name: carData.name,
+                    manufacturer: carData.manufacturer,
+                    imageUrl: carData.imageUrl,
+                    price: carData.price,
+                    year: carData.year
+                }
+            }
+            return item
+        }))
+        setOpen(false)
     }
 
   return (
@@ -45,11 +59,15 @@ const CarCard = ({ car, setCars, cars }) => {
                 </Typography> 
             </CardContent>
             <CardActions>
-                <Button onClick={() => setOpen(true)} size="small" variant="contained" color="primary">Edit</Button>
+                <Button onClick={() => {
+                    setOpen(true)
+                    setCarData(car)
+                }} size="small" variant="contained" color="primary">Edit</Button>
                 <Button onClick={deleteHandler} size="small" variant="outlined" color="error">Delete</Button>
             </CardActions>
             </Card>
         </Grid>
+
         <Dialog
             open={open}
             onClose={() => setOpen(false)}
@@ -61,16 +79,16 @@ const CarCard = ({ car, setCars, cars }) => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="dialog-description" sx={{display: 'flex', flexDirection: 'column'}}>
-                    <TextField id="outlined-basic" label="Name" variant="outlined" sx={{ width: 400, marginTop: '20px' }}/>
-                    <TextField id="outlined-basic" label="Manufacturer" variant="outlined" sx={{ width: 400, marginTop: '20px' }}/>
-                    <TextField id="outlined-basic" label="Image Url" variant="outlined" sx={{ width: 400, marginTop: '20px' }}/>
-                    <TextField id="outlined-basic" label="Price" variant="outlined" sx={{ width: 400, marginTop: '20px' }}/>
-                    <TextField id="outlined-basic" label="Year" variant="outlined" sx={{ width: 400, marginTop: '20px' }}/>
+                    <TextField  label="Name" variant="outlined" onChange={(e) => setCarData({...carData, name: e.target.value})} value={carData.name} sx={{ width: 400, marginTop: '20px' }}/>
+                    <TextField  label="Manufacturer" variant="outlined" onChange={(e) => setCarData({...carData, manufacturer: e.target.value})} value={carData.manufacturer} sx={{ marginTop: '20px' }}/>
+                    <TextField  label="Image Url" variant="outlined" onChange={(e) => setCarData({...carData, imageUrl: e.target.value})} value={carData.imageUrl} sx={{ marginTop: '20px' }}/>
+                    <TextField  label="Price" variant="outlined" onChange={(e) => setCarData({...carData, price: e.target.value})} value={carData.price} sx={{ marginTop: '20px' }}/>
+                    <TextField  label="Year" variant="outlined" onChange={(e) => setCarData({...carData, year: e.target.value})} value={carData.year} sx={{ marginTop: '20px' }}/>
                 </DialogContentText>
             </DialogContent>
             <DialogActions sx={{padding: '0 25px 20px 0'}}>
                 <Button onClick={() => setOpen(false)}>Cancel</Button>
-                <Button onClick={() => setOpen(false)} variant='contained'>Submit</Button>
+                <Button onClick={editHandler} variant='contained'>Submit</Button>
             </DialogActions>
         </Dialog>
     </>

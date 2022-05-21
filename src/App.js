@@ -1,5 +1,5 @@
 import './App.css';
-import {Typography, AppBar, Button, Card, CardHeader, CardActions, CardContent, CardMedia, CssBaseline, IconButton, Grid, Toolbar, Container, Box} from '@mui/material'
+import {Typography, CssBaseline, Grid, Container} from '@mui/material'
 import {useState, useEffect} from 'react'
 import CarCard from './Components/CarCard'
 import Header from './Components/Header'
@@ -35,8 +35,8 @@ function App() {
       </main>
       <Container maxWidth="md" sx={{padding: '20px 10px'}}>
         <Grid container spacing={4}>
-          {cars.map((car, i)=>(
-            <CarCard car={car} key={car.id} setCars={setCars} cars={cars}/>
+          {cars.map((car)=>(
+            <CarCard key={car.id} car={car} setCars={setCars} cars={cars} />
           ))}
         </Grid>
       </Container>
