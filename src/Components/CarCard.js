@@ -1,23 +1,51 @@
 import {Typography, Button, Card, CardActions, CardContent, CardMedia, Grid, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from '@mui/material'
 import { useState } from 'react'
 
+const URL = 'https://ptf-web-dizajn-2022.azurewebsites.net/api/Cars/'
 
 const CarCard = ({ car, setCars, cars }) => {
     const [open, setOpen] = useState(false)
     const [carData, setCarData] = useState({})
 
     const deleteHandler = () => {
-        fetch(`https://ptf-web-dizajn-2022.azurewebsites.net/api/Cars/${car.id}`, {
+        fetch(URL+`${car.id}`, {
             method: 'DELETE'
         })
         .then(res => {
-            console.log(res)
-            console.log("Successfully deleted", car.name)
+            if(res.ok){
+                console.log(res)
+                console.log("Successfully deleted")
+            }else{
+                console.log("Error")
+            }
         })
+        .catch(err => console.log(err))
+        
         setCars(cars.filter((el) => el.id !== car.id))
     }
 
     const editHandler = () => {
+        fetch(URL, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: carData.name,
+                manufacturer: carData.manufacturer,
+                imageUrl: carData.imageUrl,
+                price: carData.price,
+                year: carData.year
+            })
+        })
+        .then(res => {
+            if(res.ok){
+                console.log(res)
+                console.log("Successfully updated")
+            }else{
+                console.log("Error")
+            }
+        })
+        .catch(err => console.log(err))
+
         setCars(cars.map((item) => {
             if(item.id === car.id){
                 return{
