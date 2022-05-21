@@ -1,6 +1,7 @@
 import './App.css';
-import {Typography, AppBar, Button, Card, CardActions, CardContent, CardMedia, CssBaseline, Grid, Toolbar, Container, Box} from '@mui/material'
+import {Typography, AppBar, Button, Card, CardHeader, CardActions, CardContent, CardMedia, CssBaseline, IconButton, Grid, Toolbar, Container, Box} from '@mui/material'
 import {useState, useEffect} from 'react'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function App() {
   const [cars, setCars] = useState([])
@@ -13,6 +14,16 @@ function App() {
         setCars(data)
       })
   }, [])
+
+  const edit = (e) => {
+    e.preventDefault()
+    console.log("Edited")
+  }
+
+  const del = (e) => {
+    e.preventDefault()
+    console.log("Deleted")
+  }
 
   return (
     <>
@@ -32,7 +43,7 @@ function App() {
       </AppBar>
       <main>
         <div>
-          <Container maxWidth="sm" style={{ marginTop: 100 }}>
+          <Container maxWidth="sm" style={{ marginTop: 50, marginBottom: 50 }}>
             <Typography variant='h4' align='center' gutterBottom>
               Cars List
             </Typography>
@@ -43,11 +54,11 @@ function App() {
         <Grid container spacing={4}>
           {cars.map((car, i)=>(
             <Grid item key={i} xs={12} sm={6} md={4}>
-            <Card sx={{
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column'
-            }}>
+              <Card sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column'
+              }}>
               <CardMedia
                 sx={{paddingTop: '56.25%'}}
                 image={car.imageUrl}
@@ -62,8 +73,8 @@ function App() {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">View</Button>
-                <Button size="small" color="primary">Edit</Button>
+                <Button onClick={edit} size="small" variant="contained" color="primary">Edit</Button>
+                <Button onClick={del} size="small" variant="outlined" color="error">Delete</Button>
               </CardActions>
             </Card>
           </Grid>
