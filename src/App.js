@@ -1,4 +1,3 @@
-import './App.css';
 import {CssBaseline, Grid, Container} from '@mui/material'
 import {useState, useEffect} from 'react'
 import CarCard from './Components/CarCard'

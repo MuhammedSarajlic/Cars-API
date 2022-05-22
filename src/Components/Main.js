@@ -22,7 +22,7 @@ const Main = ({ setCars, cars }) => {
             })
         })
         .then(res => {
-            if(res.ok) console.log("Successfully updated", res)
+            if(res.ok) console.log("Successfully added", res)
         })
         .catch(err => console.log(err))
         setCars([
