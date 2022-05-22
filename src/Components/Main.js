@@ -40,7 +40,7 @@ const Main = ({ setCars, cars }) => {
                 </DialogContent>
                 <DialogActions sx={{padding: '0 25px 20px 0'}}>
                     <Button onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button onClick={addHandler} variant='contained'>Submit</Button>
+                    <Button /*onClick={addHandler}*/ variant='contained'>Submit</Button>
                 </DialogActions>
             </Dialog>
         </div>

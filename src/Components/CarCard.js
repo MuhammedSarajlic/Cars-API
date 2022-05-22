@@ -1,4 +1,4 @@
-import {Typography, Button, Card, CardActions, CardContent, CardMedia, Grid, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from '@mui/material'
+import { Typography, Button, Card, CardActions, CardContent, CardMedia, Grid, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material'
 import { useState } from 'react'
 
 const URL = 'https://ptf-web-dizajn-2022.azurewebsites.net/api/Cars/'
@@ -12,15 +12,10 @@ const CarCard = ({ car, setCars, cars }) => {
             method: 'DELETE'
         })
         .then(res => {
-            if(res.ok){
-                console.log(res)
-                console.log("Successfully deleted")
-            }else{
-                console.log("Error")
-            }
+            if(res.ok) console.log("Successfully deleted", res)
         })
         .catch(err => console.log(err))
-        
+
         setCars(cars.filter((el) => el.id !== car.id))
     }
 
@@ -37,12 +32,7 @@ const CarCard = ({ car, setCars, cars }) => {
             })
         })
         .then(res => {
-            if(res.ok){
-                console.log(res)
-                console.log("Successfully updated")
-            }else{
-                console.log("Error")
-            }
+            if(res.ok) console.log("Successfully updated", res)
         })
         .catch(err => console.log(err))
 
