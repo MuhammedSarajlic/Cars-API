@@ -42,11 +42,11 @@ const Main = ({ setCars, cars }) => {
     <>
     <main>
         <div>
-            <Container maxWidth="sm" style={{ marginTop: 50, marginBottom: 50 }}>
+            <Container maxWidth="sm" style={{ marginTop: 50, marginBottom: 50, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant='h4' align='center' gutterBottom>
                     Cars List
                 </Typography>
-                <Button variant='contained' onClick={() => setOpen(true)}>Add Car</Button>
+                <Button variant='contained' onClick={() => setOpen(true)} sx={{ marginTop: '50px' }}>Add Car</Button>
             </Container>
 
             <Dialog
